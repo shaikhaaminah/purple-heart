@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>💜 A Little Heart</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="heart"></canvas>
+
+<script>
+    const canvas = document.getElementById("heart");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function heart(k) {
+        return 15 * Math.sin(k) ** 3;
+    }
+
+    function heart1(k) {
+        return 12 * Math.cos(k)
+             - 5 * Math.cos(2 * k)
+             - 2 * Math.cos(3 * k)
+             - Math.cos(4 * k);
+    }
+
+    ctx.strokeStyle = "purple";
+    ctx.lineWidth = 2;
+
+    let i = 0;
+
+    function draw() {
+        if (i < 6000) {
+
+            let x = canvas.width / 2 + heart(i) * 20;
+            let y = canvas.height / 2 - heart1(i) * 20;
+
+            if (i === 0) {
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+
+            i++;
+            requestAnimationFrame(draw);
+        }
+    }
+
+    draw();
+</script>
+
+</body>
+</html>
+
